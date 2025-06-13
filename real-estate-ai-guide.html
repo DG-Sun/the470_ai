@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부동산 특화 AI 서비스 사용 설명서</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .service-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .service-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .zigbang-logo { background: linear-gradient(45deg, #ff6b6b, #ff8e53); }
+        .r114-logo { background: linear-gradient(45deg, #4ecdc4, #44a08d); }
+        .kb-logo { background: linear-gradient(45deg, #ffd700, #ffb347); }
+        .naver-logo { background: linear-gradient(45deg, #03c75a, #2db400); }
+        .piper-logo { background: linear-gradient(45deg, #3742fa, #2f3542); }
+        .ggi-logo { background: linear-gradient(45deg, #ff4757, #c44569); }
+
+        .service-description {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .feature-list {
+            background: rgba(103, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+
+        .feature-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .feature-list li::before {
+            content: "▶";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .site-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .site-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .site-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .site-link::before {
+            content: "🔗";
+            margin-right: 8px;
+        }
+
+        .site-link[href*="play.google.com"] {
+            background: linear-gradient(45deg, #34a853, #137333);
+        }
+
+        .site-link[href*="play.google.com"]::before {
+            content: "📱";
+        }
+
+        .site-link[href*="apps.apple.com"] {
+            background: linear-gradient(45deg, #007aff, #0051d0);
+        }
+
+        .site-link[href*="apps.apple.com"]::before {
+            content: "🍎";
+        }
+
+        .warning-box {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #ff6b35;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
+        }
+
+        .warning-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d63384;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .warning-icon {
+            font-size: 1.8rem;
+        }
+
+        .warning-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .warning-list li {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .warning-list li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 320px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .service-card {
+                padding: 20px 15px;
+            }
+            
+            .service-title {
+                font-size: 1.2rem;
+            }
+            
+            .steps li {
+                padding-left: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .steps li::before {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 부동산 특화 AI 서비스 사용 설명서</h1>
+            <p>AI 기술이 부동산 시장 분석, 시세 예측, 매물 추천 등 다양한 분야에 활용되면서, 사용자는 더 객관적이고 데이터에 기반한 의사결정을 내릴 수 있게 되었습니다.</p>
+        </div>
+
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">🏠</div>
+                    리치고 - AI 기반 부동산 투자 분석
+                </div>
+                <div class="service-description">
+                    리치고는 딥러닝 모델과 빅데이터를 활용하여 아파트 투자 분석, AI 경매 분석, 시세 예측 등을 제공하는 부동산 투자 전문 플랫폼입니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>리치고 앱 또는 웹사이트 접속:</strong> 부동산 투자 분석에 특화된 서비스를 이용할 수 있습니다.</li>
+                    <li><strong>AI 분석 기능 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">AI 경매 분석:</span> 경매 물건의 낙찰 예상가 및 투자 가치 분석</li>
+                                <li><span class="highlight">투자 점수:</span> AI가 분석한 투자 및 거주 점수 제공</li>
+                                <li><span class="highlight">시세 예측:</span> 딥러닝 모델 기반 미래 시세 예측</li>
+                                <li><span class="highlight">호재 분석:</span> 주변 개발 계획 및 호재 정보 분석</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>전문가 도구 활용:</strong> 리치고 전문가 버전에서 고급 분석 도구 및 리포트 기능 이용</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://m.richgo.ai" class="site-link" target="_blank">리치고 웹사이트</a>
+                </div>
+                <div style="background: rgba(23, 162, 184, 0.15); border: 1px solid #17a2b8; border-radius: 8px; padding: 12px; margin-top: 15px;">
+                    <p style="margin: 0; font-size: 0.85rem; color: #0c5460;"><strong>💡 특이사항:</strong> 리치고는 기본 기능은 무료로 제공되며, 고급 AI 분석 및 전문가 도구는 유료 서비스입니다. 리치고 Expert는 기업용 솔루션입니다.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo" style="background: linear-gradient(45deg, #667eea, #764ba2);">🌍</div>
+                    부동산플래닛 - AI 추정가 및 빅데이터 분석
+                </div>
+                <div class="service-description">
+                    부동산플래닛은 공간정보 빅데이터와 AI 알고리즘을 활용하여 전국 모든 부동산의 동·호수별 AI 추정가를 제공하는 종합 부동산 플랫폼입니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>부동산플래닛 웹사이트 또는 앱 접속</strong></li>
+                    <li><strong>AI 추정가 기능 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">동·호수별 AI 추정가:</span> 아파트, 빌라의 세부적인 가격 예측</li>
+                                <li><span class="highlight">상가·사무실 AI 추정가:</span> 상업용 부동산 시세 분석</li>
+                                <li><span class="highlight">토지·건물 분리 추정:</span> 토지가격과 건물가격 개별 분석</li>
+                                <li><span class="highlight">시세 변동 추이:</span> 15일 단위 업데이트되는 가격 동향</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>시각화된 정보 확인:</strong> 층별, 호실별 추정가격을 색상으로 구분하여 직관적으로 확인</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://www.bdsplanet.com" class="site-link" target="_blank">부동산플래닛 웹사이트</a>
+                </div>
+                <div style="background: rgba(40, 167, 69, 0.15); border: 1px solid #28a745; border-radius: 8px; padding: 12px; margin-top: 15px;">
+                    <p style="margin: 0; font-size: 0.85rem; color: #155724;"><strong>✅ 특이사항:</strong> 부동산플래닛의 AI 추정가 서비스는 회원가입 후 누구나 무료로 이용할 수 있습니다. 현재 베타 서비스 중으로 정확도는 약 70% 수준입니다.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo zigbang-logo">직방</div>
+                    직방RED - AI 기반 아파트 매매 분석
+                </div>
+                <div class="service-description">
+                    직방RED는 아파트 매매 전문 플랫폼으로, AI 기술을 활용하여 매매 시세 분석, 가격 예측, 투자 가치 평가 등을 제공하여 아파트 매매 결정을 돕습니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>직방RED 웹사이트 접속 후 아파트 단지 검색:</strong> 관심 있는 아파트 이름을 검색하여 상세 정보 페이지로 들어갑니다.</li>
+                    <li><strong>'시세 분석' 또는 'AI 분석' 탭 확인:</strong> 상세 정보 페이지 내에서 AI 기반 시세 분석 메뉴를 찾습니다.</li>
+                    <li><strong>세부 정보 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">AI 시세 예측:</span> 향후 매매가 변동 예측 및 분석</li>
+                                <li><span class="highlight">투자 가치 분석:</span> AI 기반 투자 수익률 및 리스크 분석</li>
+                                <li><span class="highlight">시장 동향 분석:</span> 지역별 매매 시장 트렌드 및 전망</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>매매 추천 시스템:</strong> 사용자의 예산과 선호도를 바탕으로 AI가 최적의 매매 물건을 추천합니다.</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://red.zigbang.com" class="site-link" target="_blank" style="background: linear-gradient(45deg, #dc3545, #b02a37);">직방RED 웹사이트</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo r114-logo">114</div>
+                    부동산114 - AI 시세 및 시장 동향 분석
+                </div>
+                <div class="service-description">
+                    부동산114는 오랜 기간 축적된 부동산 데이터를 바탕으로 AI 시세 분석과 깊이 있는 시장 동향 리포트를 제공하는 데 강점이 있습니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>부동산114 웹사이트 또는 앱 접속</strong></li>
+                    <li><strong>시세/매물 메뉴에서 아파트 검색:</strong> 원하는 아파트 단지를 검색하여 상세 페이지로 이동합니다.</li>
+                    <li><strong>'시세' 탭에서 AI 분석 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">REPS 시스템:</span> 자체 개발한 AI 알고리즘을 통한 시세 제공</li>
+                                <li><span class="highlight">실거래가 분석:</span> 면적별 시세, 유사 단지 비교 등</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>'리서치' 또는 '뉴스/리포트' 메뉴 활용:</strong> AI와 빅데이터 분석을 통한 주간/월간 시장 동향 리포트 확인</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://www.r114.com" class="site-link" target="_blank">부동산114 웹사이트</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo kb-logo">KB</div>
+                    KB부동산 - AI 예측 시세 및 가격 분석
+                </div>
+                <div class="service-description">
+                    KB국민은행의 금융 데이터와 부동산 데이터를 결합한 AI 모델을 통해 높은 정확도의 예측 시세를 제공하는 것이 특징입니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>KB부동산 앱 또는 웹사이트 접속</strong></li>
+                    <li><strong>관심 단지 검색 및 선택:</strong> 지도 또는 검색창을 통해 원하는 아파트를 선택합니다.</li>
+                    <li><strong>'시세/실거래가' 탭에서 'AI 예측' 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">단기/장기 예측:</span> 3개월 및 12개월 가격 예측</li>
+                                <li><span class="highlight">가격 범위 제시:</span> 확률적 상한가와 하한가 제공</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>'AI 리포트' 확인:</strong> 가격 결정 요인, 주변 환경 분석, 유사 단지 비교 등 종합 정보 제공</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://kbland.kr" class="site-link" target="_blank">KB부동산 웹사이트</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo naver-logo">페이</div>
+                    네이버페이 부동산 - 강력한 실거래가 분석 및 필터링
+                </div>
+                <div class="service-description">
+                    네이버페이 부동산은 방대한 실거래가 데이터를 사용자가 직접 원하는 조건으로 분석할 수 있도록 강력한 필터링과 시각화 도구를 제공합니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>네이버페이 부동산 접속 후 아파트 선택</strong></li>
+                    <li><strong>'시세/실거래가' 탭 클릭</strong></li>
+                    <li><strong>실거래가 데이터 필터링:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">기간 설정:</span> 최근 3개월~5년 또는 사용자 지정 기간</li>
+                                <li><span class="highlight">면적별 필터링:</span> 특정 평형대만 선택하여 분석</li>
+                                <li><span class="highlight">층수별/거래유형별:</span> 저층/중층/고층, 직거래/중개거래별 분석</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>그래프 활용:</strong> 필터링된 데이터를 시각적 그래프로 확인하여 가격 흐름 파악</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://land.naver.com" class="site-link" target="_blank">네이버페이 부동산 웹사이트</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo piper-logo">P</div>
+                    파이퍼 - AI 기반 온라인 담보대출 비교
+                </div>
+                <div class="service-description">
+                    파이퍼는 AI 기술을 활용하여 사용자의 소득, 신용도, 담보물건 정보를 종합 분석해 최적의 담보대출 상품을 추천하는 온라인 플랫폼입니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>파이퍼 웹사이트 또는 앱 접속</strong></li>
+                    <li><strong>담보대출 신청 정보 입력:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">개인정보:</span> 소득, 직업, 신용등급 등 기본 정보</li>
+                                <li><span class="highlight">담보물건 정보:</span> 부동산 종류, 위치, 시세, 선순위 대출 등</li>
+                                <li><span class="highlight">대출 조건:</span> 희망 대출금액, 상환방식, 대출기간 등</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>AI 분석 결과 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">맞춤형 상품 추천:</span> AI가 분석한 승인 가능성이 높은 대출상품 리스트</li>
+                                <li><span class="highlight">금리 비교:</span> 은행별, 상품별 금리 및 수수료 한눈에 비교</li>
+                                <li><span class="highlight">한도 예측:</span> 담보가치 분석을 통한 예상 대출한도 제시</li>
+                                <li><span class="highlight">승인확률:</span> 각 금융기관별 대출 승인 가능성 예측</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><strong>온라인 신청 진행:</strong> 원하는 상품 선택 후 온라인으로 바로 대출 신청 가능</li>
+                    <li><strong>실시간 진행상황 확인:</strong> 신청부터 승인까지 전 과정을 실시간으로 추적</li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://piper.loan" class="site-link" target="_blank">파이퍼 웹사이트</a>
+                </div>
+                <div style="background: rgba(102, 16, 242, 0.15); border: 1px solid #6610f2; border-radius: 8px; padding: 12px; margin-top: 15px;">
+                    <p style="margin: 0; font-size: 0.85rem; color: #3d0a91;"><strong>🏦 특이사항:</strong> 파이퍼는 대출 중개 서비스로, 실제 대출은 제휴 금융기관을 통해 진행됩니다. AI 분석 및 비교 서비스는 무료로 제공됩니다.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-title">
+                    <div class="service-logo ggi-logo">GGI</div>
+                    지지옥션 - AI 기반 경매 데이터 분석
+                </div>
+                <div class="service-description">
+                    지지옥션은 부동산 경매에 특화된 플랫폼으로, AI를 활용하여 낙찰가 예측 및 물건 분석에 필요한 데이터를 제공합니다.
+                </div>
+                <ol class="steps">
+                    <li><strong>지지옥션 사이트 접속 및 경매 물건 검색</strong></li>
+                    <li><strong>'AI분석' 또는 '빅데이터' 보고서 확인:</strong> 관심 있는 경매 물건의 상세 정보 페이지에서 관련 메뉴를 찾습니다.</li>
+                    <li><strong>주요 분석 데이터 확인:</strong>
+                        <div class="feature-list">
+                            <ul>
+                                <li><span class="highlight">예상 낙찰가:</span> AI가 분석한 예상 낙찰가 또는 낙찰가율 제시</li>
+                                <li><span class="highlight">경쟁률 예측:</span> 예상 응찰자 수 예측</li>
+                                <li><span class="highlight">종합 분석:</span> 주변 시세, 실거래가, 유사 물건 낙찰 사례 분석</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ol>
+                <div class="site-links">
+                    <a href="https://www.ggi.co.kr" class="site-link" target="_blank">지지옥션 웹사이트</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-title">
+                <span class="warning-icon">⚠️</span>
+                AI 활용 시 공통적인 참고사항
+            </div>
+            <ul class="warning-list">
+                <li><strong>AI는 참고 자료:</strong> AI가 제공하는 예측과 분석은 100% 정확하지 않습니다. 과거 데이터를 기반으로 하므로, 급격한 정책 변화나 시장 심리 변동까지는 예측하기 어렵습니다.</li>
+                <li><strong>보조 지표로 활용:</strong> AI 분석은 매우 유용한 도구이지만, 최종 결정은 반드시 <strong>현장 방문(임장)</strong>, 전문가(공인중개사, 경매 컨설턴트 등)의 조언 등을 종합하여 신중하게 내려야 합니다.</li>
+                <li><strong>데이터의 기준 확인:</strong> 각 플랫폼마다 사용하는 데이터의 종류와 AI 모델이 다르므로, 같은 아파트라도 예측 결과가 다를 수 있습니다. 여러 플랫폼의 결과를 비교하며 참고하는 것이 좋습니다.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>💡 본 설명서는 각 플랫폼의 AI 기능을 효과적으로 활용하여 더 나은 부동산 투자 결정을 내리는 데 도움을 드리기 위해 제작되었습니다.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #888;">📱 각 서비스의 모바일 앱은 해당 웹사이트에서 다운로드 링크를 확인하실 수 있습니다.</p>
+        </div>
+    </div>
+</body>
+</html>
